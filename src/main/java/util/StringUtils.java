@@ -12,26 +12,32 @@ import com.alibaba.fastjson.JSONArray;
  * @author dragon.cl 2019/9/4 5:23 PM
  */
 public class StringUtils {
+
     private static final Pattern humpPattern = Pattern.compile("[A-Z]");
 
-    private StringUtils(){
+    private StringUtils() {
+
     }
 
     public static boolean isSame(String s1, String s2) {
+
         return (s1 == null) ? s2 == null : s1.equals(s2);
     }
 
     public static boolean isEmpty(String string) {
+
         return string == null
             || "".equals(string.trim());
     }
 
     public static boolean isNotEmpty(String string) {
+
         return string != null
             && !"".equals(string.trim());
     }
 
     public static boolean isBlank(String str) {
+
         int length;
 
         if ((str == null) || ((length = str.length()) == 0)) {
@@ -48,6 +54,7 @@ public class StringUtils {
     }
 
     public static boolean isNotBlank(String str) {
+
         int length;
 
         if ((str == null) || ((length = str.length()) == 0)) {
@@ -63,23 +70,8 @@ public class StringUtils {
         return false;
     }
 
-    public static String trimPrefix(String string, char ch) {
-        if (StringUtils.isEmpty(string)) {
-            return string;
-        }
-
-        int i = 0;
-        for (; i < string.length() && string.charAt(i) == ch; i++) {
-            ;
-        }
-        if (i > 0) {
-            return string.substring(i);
-        } else {
-            return string;
-        }
-    }
-
     public static String toString(String[] array) {
+
         if (array == null) {
             return "";
         }
@@ -97,6 +89,7 @@ public class StringUtils {
     }
 
     public static int string2Int(String string) {
+
         try {
             return Integer.parseInt(string);
         } catch (Throwable t) {
@@ -108,9 +101,11 @@ public class StringUtils {
      * 驼峰命名转下划线
      *
      * @param str
+     *
      * @return
      */
     public static String camelToUnderLine(String str) {
+
         if (str == null || "".equals(str)) {
             return "";
         }
@@ -133,6 +128,7 @@ public class StringUtils {
     }
 
     public static List<String> splitIgnoreBlank(String s, String d) {
+
         List<String> list = new ArrayList<>();
         if (isEmpty(s)) {
             return list;
@@ -149,7 +145,9 @@ public class StringUtils {
     /**
      * 将字符串数组转成特定格式的字符串：seperator分隔，并以seperator开始和结束
      */
-    public static String convertArrayStringToSeperatedString(String arrayString, String seperator) {
+    public static String convertArrayStringToSeperatedString(String arrayString,
+                                                             String seperator) {
+
         if (arrayString == null || !arrayString.startsWith("[")) {
             return arrayString;
         }
@@ -169,7 +167,9 @@ public class StringUtils {
         return sb.toString();
     }
 
-    public static String convertListToSeperatedString(List<String> array, String seperator) {
+    public static String convertListToSeperatedString(List<String> array,
+                                                      String seperator) {
+
         if (array == null || array.size() <= 0) {
             return null;
         }
@@ -184,6 +184,7 @@ public class StringUtils {
     }
 
     public static List<String> convertString2List(String source) {
+
         List<String> target = new ArrayList<>();
         String[] listString = source.split(",");
         for (int i = 0; i < listString.length; i++) {
@@ -193,6 +194,7 @@ public class StringUtils {
     }
 
     public static List<String> splitByChar(String source, char c) {
+
         char[] array = source.toCharArray();
         List<String> list = new ArrayList<>();
         int begin = 0;
@@ -215,6 +217,7 @@ public class StringUtils {
     }
 
     public static void main(String[] args) {
+
         System.out.println(isSame(null, null));
         System.out.println(isSame(null, ""));
         System.out.println(isSame("", null));

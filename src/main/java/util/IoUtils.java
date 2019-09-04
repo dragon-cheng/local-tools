@@ -15,11 +15,13 @@ public class IoUtils {
      * 4kb
      */
     private static final int DEFAULT_INITIAL_BUFFER_SIZE = 4 * 1024;
+
     private static final String DEFAULT_CHARSET = "UTF-8";
 
     private IoUtils() {}
 
     public static void close(OutputStream os) {
+
         if (os == null) {
             return;
         }
@@ -32,6 +34,7 @@ public class IoUtils {
     }
 
     public static byte[] read(InputStream input) throws IOException {
+
         ByteArrayOutputStream output = new ByteArrayOutputStream(
             DEFAULT_INITIAL_BUFFER_SIZE);
         try {
@@ -48,11 +51,13 @@ public class IoUtils {
     }
 
     public static String read2String(InputStream input) throws IOException {
+
         return read2String(input, DEFAULT_CHARSET);
     }
 
     public static String read2String(InputStream input, String charset)
         throws IOException {
+
         byte[] data = read(input);
 
         try {

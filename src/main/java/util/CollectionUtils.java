@@ -15,27 +15,33 @@ public class CollectionUtils {
     private CollectionUtils() {}
 
     public static boolean isEmpty(Map map) {
+
         return map == null || map.isEmpty();
     }
 
     public static boolean isEmpty(Collection list) {
+
         return list == null || list.isEmpty();
     }
 
     public static boolean isNotEmpty(Map map) {
+
         return map != null && !map.isEmpty();
     }
 
     public static boolean isNotEmpty(Collection list) {
+
         return list != null && !list.isEmpty();
     }
 
     public static boolean isNotEmpty(Object[] array) {
+
         return array != null
             && array.length > 0;
     }
 
     public static void removeDuplicate(List list) {
+
         if (CollectionUtils.isEmpty(list)) {
             return;
         }
@@ -45,6 +51,7 @@ public class CollectionUtils {
     }
 
     public static boolean hasDiffInSet(Set set1, Set set2) {
+
         if (set1 == null || set2 == null) {
             return true;
         }
@@ -67,6 +74,7 @@ public class CollectionUtils {
     }
 
     public static boolean hasCommonInSet(Set<String> set1, Set<String> set2) {
+
         if (set1 == null || set2 == null) {
             return false;
         }
@@ -77,6 +85,7 @@ public class CollectionUtils {
     }
 
     public static List<String> addAll(List<String> set1, List<String> set2) {
+
         List<String> tmp = new ArrayList<>();
         if (set1 != null) {
             tmp.addAll(set1);
@@ -88,6 +97,7 @@ public class CollectionUtils {
     }
 
     public static Set<String> removeEmpty(Set<String> from) {
+
         if (from == null) {
             return null;
         }
@@ -101,6 +111,7 @@ public class CollectionUtils {
     }
 
     public static Set<String> removeAll(Set<String> set1, Set<String> set2) {
+
         Set<String> tmp = new HashSet<>(set1.size());
         tmp.addAll(set1);
         tmp.removeAll(set2);
@@ -108,6 +119,7 @@ public class CollectionUtils {
     }
 
     public static int countValueSize(Map<String, List<String>> map) {
+
         int count = 0;
         for (Map.Entry<String, List<String>> entry : map.entrySet()) {
             List<String> value = entry.getValue();
@@ -118,24 +130,4 @@ public class CollectionUtils {
         return count;
     }
 
-
-
-    /**
-     * 将员工编号转换为bsop特有的逗号分隔的owner 字符串
-     *
-     * @param empIdList
-     * @return
-     */
-    public static String getOwnerStr(Set<String> empIdList) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(",");
-        for (String ownerId : empIdList) {
-            if (StringUtils.isBlank(ownerId)) {
-                continue;
-            }
-
-            sb.append(ownerId).append(",");
-        }
-        return sb.toString();
-    }
 }
