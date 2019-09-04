@@ -9,8 +9,12 @@ import org.apache.commons.codec.binary.Base64;
  * @author dragon.cl 2019/9/4 5:19 PM
  */
 public class WafUtil {
+
     private static final byte[] KEY_BYTES
-        = {17, (byte)129, 107, 48, 17, 117,81,(byte)177,44,(byte)136,9,1,24,(byte)180,60,18};
+        = {
+        17, (byte)129, 107, 48, 17, 117, 81, (byte)177, 44, (byte)136, 9, 1, 24,
+        (byte)180, 60, 18
+    };
 
     private WafUtil() {}
 
@@ -18,6 +22,7 @@ public class WafUtil {
      * WAF 下发到端的解密函数
      */
     public static String wafDecrypt(String plainText) {
+
         if (StringUtils.isEmpty(plainText)) {
             return null;
         }

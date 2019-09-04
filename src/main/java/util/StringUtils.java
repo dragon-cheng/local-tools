@@ -13,7 +13,11 @@ import com.alibaba.fastjson.JSONArray;
  */
 public class StringUtils {
 
-    private static final Pattern humpPattern = Pattern.compile("[A-Z]");
+    private static final Pattern HUMP_PATTERN = Pattern.compile("[A-Z]");
+
+    private static final String MID_BRACKETS_PREFIX = "[";
+
+    private static final String UNDERLINE_SYMBOL = "_";
 
     private StringUtils() {
 
@@ -110,16 +114,16 @@ public class StringUtils {
             return "";
         }
 
-        Matcher matcher = humpPattern.matcher(str);
+        Matcher matcher = HUMP_PATTERN.matcher(str);
         StringBuffer sb = new StringBuffer();
         while (matcher.find()) {
-            matcher.appendReplacement(sb, "_" + matcher.group(0).toLowerCase());
+            matcher.appendReplacement(sb, UNDERLINE_SYMBOL + matcher.group(0).toLowerCase());
         }
         matcher.appendTail(sb);
 
         String result = sb.toString();
         // 如果首字母为大写，就会以_开头，截取掉这个_
-        if (result.startsWith("_")) {
+        if (result.startsWith(UNDERLINE_SYMBOL)) {
             result = result.substring(1);
         }
 
@@ -143,12 +147,13 @@ public class StringUtils {
     }
 
     /**
-     * 将字符串数组转成特定格式的字符串：seperator分隔，并以seperator开始和结束
+     * 将字符串数组转成特定格式的字符串：separate分隔，并以separate开始和结束
      */
     public static String convertArrayStringToSeperatedString(String arrayString,
-                                                             String seperator) {
+                                                             String separate) {
 
-        if (arrayString == null || !arrayString.startsWith("[")) {
+        if (arrayString == null || !arrayString.startsWith(
+            MID_BRACKETS_PREFIX)) {
             return arrayString;
         }
         JSONArray array = JSON.parseArray(arrayString);
@@ -161,24 +166,24 @@ public class StringUtils {
             if (StringUtils.isEmpty(str)) {
                 continue;
             }
-            sb.append(seperator).append(str);
+            sb.append(separate).append(str);
         }
-        sb.append(seperator);
+        sb.append(separate);
         return sb.toString();
     }
 
     public static String convertListToSeperatedString(List<String> array,
-                                                      String seperator) {
+                                                      String separator) {
 
         if (array == null || array.size() <= 0) {
             return null;
         }
-        StringBuilder sb = new StringBuilder(seperator);
+        StringBuilder sb = new StringBuilder(separator);
         for (String ele : array) {
             if (isEmpty(ele)) {
                 continue;
             }
-            sb.append(ele).append(seperator);
+            sb.append(ele).append(separator);
         }
         return sb.toString();
     }

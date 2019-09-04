@@ -20,55 +20,69 @@ import com.alibaba.fastjson.serializer.SimpleDateFormatSerializer;
  */
 public class JsonUtils {
 
-    private JsonUtils () {}
+    private JsonUtils() {}
 
     private static String DATE_PATTERN_FOR_DAY = "yyyy-MM-dd";
+
     private static String DATE_PATTERN_FOR_TIME = "yyyy-MM-dd HH:mm:ss";
-    public static SimpleDateFormat dateFormatterDay = new SimpleDateFormat(DATE_PATTERN_FOR_DAY);
-    public static SimpleDateFormat dateFormatterTime = new SimpleDateFormat(DATE_PATTERN_FOR_TIME);
+
+    public static SimpleDateFormat dateFormatterDay = new SimpleDateFormat(
+        DATE_PATTERN_FOR_DAY);
+
+    public static SimpleDateFormat dateFormatterTime = new SimpleDateFormat(
+        DATE_PATTERN_FOR_TIME);
 
     /**
      * fastJson 的序列化配置
      */
-    private final static SerializeConfig serializeMapping = new SerializeConfig();
+    private final static SerializeConfig SERIALIZE_MAPPING
+        = new SerializeConfig();
 
     public static String toJsonString(Object object) {
+
         return toJsonString(object, DATE_PATTERN_FOR_TIME);
     }
 
     public static String toJsonString(Object object, String dateFormat) {
+
         if (null == object) {
             return "";
         }
 
-        serializeMapping.put(Date.class, new SimpleDateFormatSerializer(dateFormat));
+        SERIALIZE_MAPPING.put(Date.class,
+                              new SimpleDateFormatSerializer(dateFormat));
         // 默认打出所有属性(即使属性值为null)|属性排序输出
         SerializerFeature[] features = {
             SerializerFeature.WriteMapNullValue,
             SerializerFeature.WriteEnumUsingToString,
             SerializerFeature.SortField
         };
-        return JSON.toJSONString(object, serializeMapping, features);
+        return JSON.toJSONString(object, SERIALIZE_MAPPING, features);
     }
 
     /**
      * 遇到值为null的属性时就不打印
+     *
      * @param object
+     *
      * @return
      */
     public static String toJsonStringExceptNullValue(Object object) {
+
         if (null == object) {
             return "";
         }
 
-        serializeMapping.put(Date.class, new SimpleDateFormatSerializer(DATE_PATTERN_FOR_TIME));
+        SERIALIZE_MAPPING.put(Date.class, new SimpleDateFormatSerializer(
+            DATE_PATTERN_FOR_TIME));
         SerializerFeature[] features = {
             SerializerFeature.WriteEnumUsingToString
         };
-        return JSON.toJSONString(object, serializeMapping, features);
+        return JSON.toJSONString(object, SERIALIZE_MAPPING, features);
     }
 
     public static Set<Long> convertString2LongSet(String string) {
+
         if (StringUtils.isEmpty(string)) {
             return Collections.EMPTY_SET;
         }
@@ -78,6 +92,7 @@ public class JsonUtils {
     }
 
     public static Set<Long> convertArray2LongSet(JSONArray array) {
+
         if (array == null) {
             return Collections.EMPTY_SET;
         }
@@ -96,11 +111,16 @@ public class JsonUtils {
      * @param jsonArray
      * @param keyName
      * @param keyValue
+     *
      * @return
      */
-    public static JSONObject retrieveObjectFromArray(JSONArray jsonArray, String keyName, String keyValue) {
+    public static JSONObject retrieveObjectFromArray(JSONArray jsonArray,
+                                                     String keyName,
+                                                     String keyValue) {
+
         if (jsonArray != null && keyName != null && keyValue != null) {
-            for (int j = 0, arrayLength = jsonArray.size(); j < arrayLength; j++) {
+            for (int j = 0, arrayLength = jsonArray.size(); j < arrayLength;
+                 j++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(j);
                 String theKeyValue = jsonObject.getString(keyName);
                 if (keyValue.equals(theKeyValue)) {
@@ -117,9 +137,11 @@ public class JsonUtils {
     public static <K, V> Map<K, V> parseToMap(String json,
                                               Class<K> keyType,
                                               Class<V> valueType) {
+
         return JSON.parseObject(json,
-            new TypeReference<Map<K, V>>(keyType, valueType) {
-            });
+                                new TypeReference<Map<K, V>>(keyType,
+                                                             valueType) {
+                                });
     }
 
     /**
@@ -129,16 +151,18 @@ public class JsonUtils {
      *
      * @param o1
      * @param o2
+     *
      * @return
      */
     public static boolean isSame(Object o1, Object o2) {
+
         if (o1 == null && o2 != null) {
             return false;
         }
         if (o1 != null && o2 == null) {
             return false;
         }
-        if (o1 == null && o2 == null) {
+        if (o1 == null) {
             return true;
         }
         if (o1.getClass() != o2.getClass()) {
